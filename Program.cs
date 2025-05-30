@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using ConsoleApplicationTest.Models;
 
-HttpClient httpClient = new HttpClient();
+using HttpClient httpClient = new HttpClient();
 
 var usersJsonData = await httpClient.GetStringAsync("https://jsonplaceholder.typicode.com/users");
 var postsJsonData = await httpClient.GetStringAsync("https://jsonplaceholder.typicode.com/posts");
