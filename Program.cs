@@ -1,15 +1,15 @@
 ﻿using System.Text.Json;
 using ConsoleApplicationTest.Models;
 
-HttpClient httpClient = new HttpClient();
+using HttpClient httpClient = new HttpClient();
 
-var usersJsonData = await httpClient.GetStringAsync("https://jsonplaceholder.typicode.com/users");
-var postsJsonData = await httpClient.GetStringAsync("https://jsonplaceholder.typicode.com/posts");
+string usersJsonData = await httpClient.GetStringAsync("https://jsonplaceholder.typicode.com/users");
+string postsJsonData = await httpClient.GetStringAsync("https://jsonplaceholder.typicode.com/posts");
 
-var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+JsonSerializerOptions options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-var usersRAM = JsonSerializer.Deserialize<List<User>>(usersJsonData, options)!;
-var postsRAM = JsonSerializer.Deserialize<List<Post>>(postsJsonData, options)!;
+var usersRAM = JsonSerializer.Deserialize<List<User>>(usersJsonData, options);
+var postsRAM = JsonSerializer.Deserialize<List<Post>>(postsJsonData, options);
 
 var filteredUsersByS = usersRAM
     .Where(u => u.Address.City.StartsWith("S", StringComparison.OrdinalIgnoreCase))
