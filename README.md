@@ -7,6 +7,8 @@ A simple .NET console application that fetches users and posts from a public API
 
 1. **Clone the repository** or [download the ZIP](https://github.com/Iamfittz/ConsoleApplicationTest/archive/refs/heads/master.zip) and extract it.
 
+   ```bash
+   git clone https://github.com/Iamfittz/ConsoleApplicationTest.git
 2. **Open a terminal and navigate to the project directory**: 
 
 3. **Run the app using the .NET CLI:**   
