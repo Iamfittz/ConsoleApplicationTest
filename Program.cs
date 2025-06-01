@@ -1,5 +1,7 @@
 ﻿using System.Text.Json;
 using ConsoleApplicationTest.Models;
+using ConsoleApplicationTest.ExtensionMethods;
+
 
 using HttpClient httpClient = new HttpClient();
 
@@ -12,20 +14,20 @@ var usersRAM = JsonSerializer.Deserialize<List<User>>(usersJsonData, options);
 var postsRAM = JsonSerializer.Deserialize<List<Post>>(postsJsonData, options);
 
 var filteredUsersByS = usersRAM
-    .Where(u => u.Address.City.StartsWith("S", StringComparison.OrdinalIgnoreCase))
+    .MyWhereCustom(u => u.Address.City.StartsWith("S", StringComparison.OrdinalIgnoreCase))
     .ToList();
 var sortedUsersByPost = usersRAM
     .OrderByDescending(u => postsRAM.Count(m => m.UserId == u.Id))
     .ToList();
 var topUserData = usersRAM
-    .Select(u => new {
+    .MySelectCustom(u => new {
         User = u,
         PostCount = postsRAM.Count(p => p.UserId == u.Id)
     })
     .OrderByDescending(x => x.PostCount)
     .First();
 var topThreeUsers = usersRAM
-    .Select(u => new {
+    .MySelectCustom(u => new {
         Name = u.Name,
         PostCount = postsRAM.Count(p => p.UserId == u.Id)
     })
@@ -37,7 +39,7 @@ var topThreeUsers = usersRAM
 Console.WriteLine("Extract people who's city Starting with S");
 foreach (var user in filteredUsersByS) {
     var userPosts = postsRAM
-        .Where(p => p.UserId == user.Id)
+        .MyWhereCustom(p => p.UserId == user.Id)
         .ToList();
 
     Console.WriteLine($"Name: {user.Name}");
